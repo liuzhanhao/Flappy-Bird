@@ -2,6 +2,7 @@ import random
 from itertools import cycle
 
 import pygame
+import torch
 
 
 def load():
@@ -193,7 +194,7 @@ class GameState:
 
         SCREEN.blit(IMAGES['base'], (self.basex, BASEY))
         # print score so player overlaps the score
-        # showScore(self.score)
+        showScore(self.score)
         SCREEN.blit(IMAGES['player'][self.playerIndex],
                     (self.playerx, self.playery))
 
@@ -283,3 +284,15 @@ def pixelCollision(rect1, rect2, hitmask1, hitmask2):
             if hitmask1[x1 + x][y1 + y] and hitmask2[x2 + x][y2 + y]:
                 return True
     return False
+
+if __name__== "__main__":
+    game_state = GameState()
+    action = torch.zeros([2], dtype=torch.float32)
+    action[0] = 1
+    while True:
+        mouse = pygame.mouse.get_pressed()[0]
+        if mouse == True:
+            action[0], action[1] = 0, 1
+        else :
+            action[0], action[1] = 1, 0
+        image_data_1, reward, terminal = game_state.frame_step(action)

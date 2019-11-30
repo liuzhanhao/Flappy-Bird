@@ -190,7 +190,7 @@ def train(model, start):
 
         print("iteration:", iteration, "elapsed time:", time.time() - start, "epsilon:", epsilon, "action:",
               action_index.cpu().detach().numpy(), "reward:", reward.numpy()[0][0], "Q max:",
-              np.max(output.cpu().detach().numpy()))
+              np.max(output.cpu().detach().numpy()), "loss: ", loss.cpu().detach().numpy())
 
 
 def test(model):
